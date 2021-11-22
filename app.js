@@ -16,7 +16,7 @@ app.use(express.static("public"));
 //Initializing routes
 app.use('/api/user', user);     //Route for all user related functions (Login, register, etc.)
 app.use('/api/retrieve_schedule', retrieve_schedule);  //Route for all schedule retrieval related functions (Fetching, searching, etc.)
-app.use('/api/upload_schedule', upload_schedule);  //Route for all payment related functions (Uploading, updating, etc.)
+app.use('/api/upload_schedule', upload_schedule);  //Route for all schedule uploading related functions (Uploading, updating, etc.)
 
 //For testing the root when deployed to cloud
 app.get('/', async (req, res) => {
