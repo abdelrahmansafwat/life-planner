@@ -28,13 +28,14 @@ export default function CreateSchedule() {
   const setEvent = () => {
     let events = [...allEvents];
 
-    console.log(selectedTime.start);
+    console.log([selectedTime.start.getDay()]);
 
     events.push({
       id: selectedTime.startStr,
       title: eventTitle + " (" + eventType + ")",
       start: selectedTime.start,
       end: selectedTime.end,
+      //daysOfWeek: [selectedTime.start.getDay()]
     });
 
     setAllEvents(events);
@@ -63,12 +64,14 @@ export default function CreateSchedule() {
                     id: dayjs(value.start).subtract(1, "hour").toString(),
                     title: "Stretch",
                     start: dayjs(value.start).subtract(1, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.start).subtract(1, "hour").toDate().getDay()],
                     //end: value.start,
                 });
                 events.push({
                     id: value.end.toString(),
                     title: "Eat",
                     start: dayjs(value.end).add(1, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.end).add(1, "hour").toDate().getDay()],
                     //end: dayjs(value.end).add(1, "hour").toDate(),
                 });
             }
@@ -77,12 +80,14 @@ export default function CreateSchedule() {
                     id: dayjs(value.start).subtract(1, "day").toString(),
                     title: "Cover asynchronous content",
                     start: dayjs(value.start).subtract(1, "day").add(1, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.start).subtract(1, "day").add(1, "hour").toDate().getDay()],
                     //end: dayjs(value.start).subtract(1, "day").add(1, "hour").toDate(),
                 });
                 events.push({
                     id: value.end.toString(),
                     title: "Make revision notes",
                     start: dayjs(value.end).add(1, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.end).add(1, "hour").toDate().getDay()],
                     //end: dayjs(value.end).add(1, "hour").toDate(),
                 });
             }
@@ -91,12 +96,14 @@ export default function CreateSchedule() {
                     id: dayjs(value.start).subtract(2, "hour").toString(),
                     title: "Drink",
                     start: dayjs(value.start).subtract(2, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.start).subtract(2, "hour").toDate().getDay()],
                     //end: dayjs(value.start).subtract(1, "hour").subtract(30, "minute").toDate(),
                 });
                 events.push({
                     id: value.end.toString(),
                     title: "Sleep",
                     start: dayjs(value.end).add(30, "minute").toDate(),
+                    //daysOfWeek: [dayjs(value.end).add(30, "minute").toDate().getDay()],
                     //end: dayjs(value.end).add(30, "minute").toDate(),
                 });
             }
@@ -105,12 +112,14 @@ export default function CreateSchedule() {
                     id: dayjs(value.start).subtract(1, "hour").toString(),
                     title: "Buy ingredients",
                     start: dayjs(value.start).subtract(1, "hour").toDate(),
+                    //daysOfWeek: [dayjs(value.start).subtract(1, "hour").toDate().getDay()],
                     //end: value.start,
                 });
                 events.push({
                     id: value.end.toString(),
                     title: "Clean up",
                     start: dayjs(value.end).add(30, "minute").toDate(),
+                    //daysOfWeek: [dayjs(value.end).add(30, "minute").toDate().getDay()],
                     //end: dayjs(value.end).add(30, "minute").toDate(),
                 });
             }
