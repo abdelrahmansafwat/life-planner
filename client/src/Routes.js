@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Login from "./Login";
 import Register from "./Register";
@@ -11,7 +11,7 @@ import history from './history';
 export default class Routes extends Component {
     render() {
         return (
-            <Router history={history}>
+            <BrowserRouter history={history}>
                 <Switch>
                     <Route path="/" exact component={Login} />
                     <Route path="/login" component={Login} />
@@ -19,7 +19,7 @@ export default class Routes extends Component {
                     <Route path="/create-schedule" component={CreateSchedule} />
                     <Route path="/schedule" component={Schedule} />
                 </Switch>
-            </Router>
+            </BrowserRouter>
         )
     }
 }
