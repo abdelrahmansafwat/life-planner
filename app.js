@@ -6,6 +6,7 @@ const user = require("./routes/user")
 const retrieve_schedule = require("./routes/retrieve_schedule")
 const upload_schedule = require("./routes/upload_schedule")
 const path = require("path");
+require('./email-cron')();
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
