@@ -2,8 +2,8 @@ const CronJob = require("cron").CronJob;
 const scheduleModel = require("./models/schedule");
 const dayjs = require("dayjs");
 const nodemailer = require("nodemailer");
-const utc = require('dayjs/plugin/utc');
-const timezone = require('dayjs/plugin/timezone');
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Europe/London");
@@ -32,10 +32,10 @@ module.exports = async () => {
           });
           return;
         }
-        data.forEach((value, index) => {
+        data.forEach(async (result, index) => {
           //console.log(value);
-          value.schedule.forEach(async (value, index) => {
-            let schedule = [];
+          let schedule = [];
+          result.schedule.forEach(async (value, index) => {
             if (dayjs(value.start).day() === dayjs().day()) {
               schedule.push(
                 value.title +
@@ -45,24 +45,24 @@ module.exports = async () => {
                   ("0" + dayjs(value.start).minute()).slice(-2)
               );
             }
-
-            if (schedule.length > 0) {
-              let message =
-                "<p>Hello!</p><p>Just wanted to remind you about today's schedule.</p>";
-
-              schedule.forEach((value, index) => {
-                message = message + "<p>" + value + "</p>";
-              });
-
-              let dailyEmail = await transporter.sendMail({
-                from: '"Life Planner Bot" <bot@life-planner.com>',
-                to: value.user_id,
-                subject: "Daily Reminder",
-                text: "Here's today's schedule",
-                html: message,
-              });
-            }
           });
+
+          if (schedule.length > 0) {
+            let message =
+              "<p>Hello!</p><p>Just wanted to remind you about today's schedule.</p>";
+
+            schedule.forEach((value, index) => {
+              message = message + "<p>" + value + "</p>";
+            });
+
+            let dailyEmail = await transporter.sendMail({
+              from: '"Life Planner Bot" <bot@life-planner.com>',
+              to: result.user_id,
+              subject: "Daily Reminder",
+              text: "Here's today's schedule",
+              html: message,
+            });
+          }
         });
       });
     },
@@ -84,9 +84,9 @@ module.exports = async () => {
           });
           return;
         }
-        data.forEach((value, index) => {
+        data.forEach((result, index) => {
           //console.log(value);
-          value.schedule.forEach(async (value, index) => {
+          result.schedule.forEach(async (value, index) => {
             let schedule = [];
             if (
               dayjs(value.start).hour() === currentTime.hour() &&
@@ -105,7 +105,7 @@ module.exports = async () => {
 
               let eventEmail = await transporter.sendMail({
                 from: '"Life Planner Bot" <bot@life-planner.com>',
-                to: value.user_id,
+                to: result.user_id,
                 subject: "Event Reminder",
                 text: "There's an event scheduled for now",
                 html: message,
