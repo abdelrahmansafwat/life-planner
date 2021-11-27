@@ -19,8 +19,8 @@ app.use('/api/retrieve_schedule', retrieve_schedule);  //Route for all schedule 
 app.use('/api/upload_schedule', upload_schedule);  //Route for all schedule uploading related functions (Uploading, updating, etc.)
 
 //For testing the root when deployed to cloud
-app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+app.get('*', async (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 //Uncomment the line below this if testing on local machine
