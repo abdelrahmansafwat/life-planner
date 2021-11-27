@@ -1,3 +1,6 @@
+//ffd500
+//864cbf
+
 import React, { useState, useRef } from "react";
 import {
   Button,
@@ -25,7 +28,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayjs from "dayjs";
 import Lottie from "react-lottie";
 import scientist from "./assets/scientist.json";
-import history from "./history";
+import "./styles.css";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -39,6 +44,7 @@ export default function CreateSchedule() {
   const [ready, setReady] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [created, setCreated] = useState(false);
+  const history = useHistory();
   const anchorRef = useRef(null);
 
   const handleToggle = () => {
@@ -170,199 +176,230 @@ export default function CreateSchedule() {
 
   return (
     <React.Fragment>
-      {!created && (
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add Event</DialogTitle>
+        <DialogContent>
+          <TextField
+            //autoFocus
+            margin="dense"
+            id="event"
+            label="Event Title"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setEventTitle(e.target.value)}
+          />
+          <FormControl fullWidth>
+            <InputLabel id="event-type-label">Event Type</InputLabel>
+            <Select
+              labelId="event-type-select-label"
+              id="event-type-select"
+              value={eventType}
+              label="Age"
+              onChange={(e) => setEventType(e.target.value)}
+            >
+              <MenuItem value={"Sports"}>Sports</MenuItem>
+              <MenuItem value={"Class"}>Class</MenuItem>
+              <MenuItem value={"Clubbing"}>Clubbing</MenuItem>
+              <MenuItem value={"Meal"}>Meal</MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={setEvent}>Add</Button>
+        </DialogActions>
+      </Dialog>
+      {ready && (
         <React.Fragment>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Add Event</DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="event"
-                label="Event Title"
-                fullWidth
-                variant="standard"
-                onChange={(e) => setEventTitle(e.target.value)}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="event-type-label">Event Type</InputLabel>
-                <Select
-                  labelId="event-type-select-label"
-                  id="event-type-select"
-                  value={eventType}
-                  label="Age"
-                  onChange={(e) => setEventType(e.target.value)}
+          {[1, 2, 3, 4, 5, 6, 0].map((value, index) => (
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              justifyContent="center"
+              //style={{ minHeight: "100vh" }}
+            >
+              <Grid item>
+                <Paper
+                  elevation={5}
+                  style={{
+                    width: "100%",
+                    marginBottom: 50,
+                    borderRadius: 50,
+                    paddingTop: 50,
+                    paddingBottom: 50,
+                    backgroundColor: "#8DB596",
+                  }}
                 >
-                  <MenuItem value={"Sports"}>Sports</MenuItem>
-                  <MenuItem value={"Class"}>Class</MenuItem>
-                  <MenuItem value={"Clubbing"}>Clubbing</MenuItem>
-                  <MenuItem value={"Meal"}>Meal</MenuItem>
-                </Select>
-              </FormControl>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={setEvent}>Add</Button>
-            </DialogActions>
-          </Dialog>
-          {ready && (
-            <React.Fragment>
-              <FullCalendar
-                plugins={[timeGridPlugin, interactionPlugin]}
-                headerToolbar={false}
-                height={"auto"}
-                allDaySlot={false}
-                firstDay={1}
-                //slotDuration={"01:00:00"}
-                eventTimeFormat={{
-                  hour: "numeric",
-                  minute: "2-digit",
-                  meridiem: "short",
-                }}
-                dayHeaderContent={(calendar) =>
-                  weekDays[calendar.date.getDay()]
-                }
-                events={allEvents}
-                selectable={true}
-                select={handleOpen}
-              />
-              {!confirm && (
-                <Button fullWidth onClick={planLife}>
-                  Plan Your Life
-                </Button>
-              )}
-            </React.Fragment>
-          )}
-          {!ready && (
-            <React.Fragment>
-              <Lottie
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: scientist,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice",
-                  },
-                }}
-                height={400}
-                width={400}
-              />
-              <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justify="center"
-                justifyContent="center"
-                //style={{ minHeight: "100vh" }}
-              >
-                <Grid item xs={3}>
-                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
-                    Hang on...
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
-                    Our rocket scientists are planning your life
-                  </Typography>
-                </Grid>
-              </Grid>
-            </React.Fragment>
-          )}
-          {confirm && (
-            <React.Fragment>
-              <Fab
-                style={{
-                  position: "fixed",
-                  bottom: 30,
-                  right: 30,
-                  zIndex: 100,
-                }}
-                size="medium"
-                onClick={handleToggle}
-                variant="extended"
-                ref={anchorRef}
-              >
-                Can you manage this schedule?
-              </Fab>
-              <Popper
-                open={openMenu}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-                style={{
-                  zIndex: 100,
-                  width: 250,
-                }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
+                  <FullCalendar
+                    plugins={[timeGridPlugin, interactionPlugin]}
+                    headerToolbar={false}
+                    height={"auto"}
+                    allDaySlot={false}
+                    firstDay={1}
+                    slotMinTime={"07:00"}
+                    hiddenDays={[1, 2, 3, 4, 5, 6, 0].filter(
+                      (e) => e !== value
+                    )}
+                    eventBackgroundColor={"#BEDBBB"}
+                    eventBorderColor={"#BEDBBB"}
+                    eventTextColor={"#000"}
+                    //minTime={"07:00"}
+                    //slotDuration={"01:00:00"}
+                    eventTimeFormat={{
+                      hour: "numeric",
+                      minute: "2-digit",
+                      meridiem: "short",
                     }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleMenuClose}>
-                        <MenuList
-                          autoFocusItem={openMenu}
-                          id="menu-list-grow"
-                          onKeyDown={handleListKeyDown}
-                        >
-                          <MenuItem
-                            onClick={() => {
-                              console.log("Saved");
-                              let eventsStringified = [];
-                              allEvents.map((value, index) => {
-                                eventsStringified.push(JSON.stringify(value));
-                              });
-                              localStorage.setItem(
-                                "schedule",
-                                JSON.stringify(eventsStringified)
-                              );
-                              setCreated(true);
-                            }}
-                          >
-                            Yes
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              setAllEvents([]);
-                              setOpenMenu(false);
-                              setConfirm(false);
-                            }}
-                          >
-                            No
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </React.Fragment>
+                    dayHeaderContent={(calendar) =>
+                      weekDays[calendar.date.getDay()]
+                    }
+                    events={allEvents}
+                    selectable={true}
+                    select={handleOpen}
+                  />
+                </Paper>
+              </Grid>
+            </Grid>
+          ))}
+          {!confirm && (
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#8DB596",
+              }}
+              fullWidth
+              onClick={planLife}
+            >
+              Plan Your Life
+            </Button>
           )}
         </React.Fragment>
       )}
-      {created && (
+      {!ready && (
         <React.Fragment>
-          <FullCalendar
-            plugins={[timeGridPlugin, interactionPlugin]}
-            headerToolbar={false}
-            height={"auto"}
-            allDaySlot={false}
-            firstDay={1}
-            //slotDuration={"01:00:00"}
-            eventTimeFormat={{
-              hour: "numeric",
-              minute: "2-digit",
-              meridiem: "short",
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: scientist,
+              rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice",
+              },
             }}
-            dayHeaderContent={(calendar) => weekDays[calendar.date.getDay()]}
-            events={allEvents}
+            height={400}
+            width={400}
           />
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            justifyContent="center"
+            //style={{ minHeight: "100vh" }}
+          >
+            <Grid item>
+              <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+                Hang on...
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+                Our rocket scientists are planning your life
+              </Typography>
+            </Grid>
+          </Grid>
+        </React.Fragment>
+      )}
+      {confirm && (
+        <React.Fragment>
+          <Fab
+            style={{
+              position: "fixed",
+              bottom: 5,
+              right: 5,
+              zIndex: 100,
+              backgroundColor: "#8DB596",
+            }}
+            size="medium"
+            onClick={handleToggle}
+            variant="extended"
+            ref={anchorRef}
+          >
+            Can you manage this schedule?
+          </Fab>
+          <Popper
+            open={openMenu}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+            style={{
+              zIndex: 100,
+              width: 250,
+            }}
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleMenuClose}>
+                    <MenuList
+                      autoFocusItem={openMenu}
+                      id="menu-list-grow"
+                      onKeyDown={handleListKeyDown}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          console.log("Saved");
+                          let eventsStringified = [];
+                          allEvents.map((value, index) => {
+                            eventsStringified.push(JSON.stringify(value));
+                          });
+                          localStorage.setItem(
+                            "schedule",
+                            JSON.stringify(eventsStringified)
+                          );
+                          axios.create({ baseURL: window.location.origin });
+                          axios
+                            .post("/api/upload_schedule/new", {
+                              user_id: localStorage.getItem("user_id"),
+                              schedule: allEvents,
+                            })
+                            .then(function (response) {
+                              console.log(response);
+                              history.push("/schedule");
+                            })
+                            .catch(function (error) {
+                              console.log(error);
+                            });
+                        }}
+                      >
+                        Yes
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setAllEvents([]);
+                          setOpenMenu(false);
+                          setConfirm(false);
+                        }}
+                      >
+                        No
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </React.Fragment>
       )}
     </React.Fragment>

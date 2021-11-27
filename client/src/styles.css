@@ -1,0 +1,21 @@
+@font-face {
+    font-family: LeagueSpartan;
+    src: url('./assets/LeagueSpartan.ttf');
+}
+
+*{
+    font-family: LeagueSpartan;
+}
+
+.fc-scrollgrid-sync-inner {
+    background-color: #8DB596;
+}
+
+.fc-timegrid-axis {
+    background-color: #8DB596;
+}
+
+.fc-today
+{
+  background-color: #8DB596 !important;
+}

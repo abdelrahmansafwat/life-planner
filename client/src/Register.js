@@ -18,7 +18,7 @@ import {
 import { LockOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import history from "./history";
-const axios = require("axios");
+import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -191,6 +191,7 @@ export default function SignUp() {
                     })
                     .then(function (response) {
                       console.log(response);
+                      localStorage.setItem("user_id", email);
                       history.push("/create-schedule");
                     })
                     .catch(function (error) {

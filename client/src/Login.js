@@ -19,8 +19,8 @@ import {
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import history from "./history";
-const axios = require("axios");
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -54,6 +54,8 @@ export default function SignIn() {
   const [passwordError, setPasswordError] = useState(false);
   const [authError, setAuthError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const history = useHistory();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -140,6 +142,7 @@ export default function SignIn() {
                   })
                   .then(function (response) {
                     console.log(response);
+                    localStorage.setItem("user_id", email);
                     history.push("/schedule");
                   })
                   .catch(function (error) {

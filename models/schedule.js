@@ -4,13 +4,8 @@ const Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 let scheduleSchema = new Schema({
-    monday: { type: [Object], required: true },
-    tuesday: { type: [Object], required: true },
-    wednesday: { type: [Object], required: true },
-    thursday: { type: [Object], required: true },
-    friday: { type: [Object], required: true },
-    saturday: { type: [Object], required: true },
-    sunday: { type: [Object], required: true },
+    schedule: { type: [Object], required: true },
+    user_id: { type: String, required: true },
 });
 
 let scheduleModel = mongoose.model("scheduleModel", scheduleSchema);

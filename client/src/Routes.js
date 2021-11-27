@@ -16,8 +16,8 @@ export default class Routes extends Component {
                     <Route path="/" exact component={Login} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
-                    <Route path="/create-schedule" component={CreateSchedule} />
-                    <Route path="/schedule" component={Schedule} />
+                    <Route path="/create-schedule" exact component={CreateSchedule} />
+                    <Route path="/schedule" exact component={Schedule} />
                 </Switch>
             </BrowserRouter>
         )

@@ -7,13 +7,8 @@ router.post("/new", async (req, res) => {
   let schedule = req.body.schedule;
 
   let newSchedule = new scheduleModel({
-    monday: schedule.monday,
-    tuesday: schedule.tuesday,
-    wednesday: schedule.wednesday,
-    thursday: schedule.thursday,
-    friday: schedule.friday,
-    saturday: schedule.saturday,
-    sunday: schedule.sunday,
+    schedule: req.body.schedule,
+    user_id: req.body.user_id
   });
 
   newSchedule.save((err, data) => {
@@ -30,19 +25,14 @@ router.post("/new", async (req, res) => {
 });
 
 //Update schedule route
-router.post("/update", uploadDisk.single("file"), async (req, res) => {
+router.post("/update", async (req, res) => {
   let schedule = req.body.schedule;
 
   let newSchedule = await scheduleModel.findOneAndUpdate(
     { _id: req.body._id },
     {
-      monday: schedule.monday,
-      tuesday: schedule.tuesday,
-      wednesday: schedule.wednesday,
-      thursday: schedule.thursday,
-      friday: schedule.friday,
-      saturday: schedule.saturday,
-      sunday: schedule.sunday,
+      schedule: req.body.schedule,
+      user_id: req.body.user_id
     },
     { new: true }
   );
