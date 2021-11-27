@@ -24,7 +24,7 @@ app.get('*', async (req, res) => {
 });
 
 //Uncomment the line below this if testing on local machine
-app.listen(process.env.PORT | 3000, () => console.log("Listening on: " + (process.env.PORT | 3000)));
+app.listen(process.env.PORT || 3000, () => console.log("Listening on: " + (process.env.PORT | 3000)));
 
 //Uncomment the line below and comment the line above if deploying to cloud
 //module.exports = app;
