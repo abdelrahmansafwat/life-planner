@@ -13,15 +13,17 @@ export default function Schedule() {
   const history = useHistory();
 
   useEffect(() => {
+    /*
     console.log(localStorage.getItem("schedule"));
     let schedule = localStorage.getItem("schedule");
-
+    
     let scheduleParsed = JSON.parse(schedule);
     let eventsParsed = [];
 
     scheduleParsed.map((value, index) => {
       eventsParsed.push(JSON.parse(value));
     });
+    */
 
     axios.create({ baseURL: window.location.origin });
     axios
