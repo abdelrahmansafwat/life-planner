@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import history from "./history";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -56,6 +56,8 @@ export default function SignUp() {
   const [lastNameError, setLastNameError] = useState(false);
   const [authError, setAuthError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const history = useHistory();
 
   return (
     <Container component="main" maxWidth="xs">
