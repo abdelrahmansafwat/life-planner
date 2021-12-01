@@ -219,12 +219,11 @@ export default function CreateSchedule() {
               value={eventType}
               label="Age"
               onChange={(e) => setEventType(e.target.value)}
-              style={{ color: "black" }}
             >
-              <MenuItem value={"Sports"}>Sports</MenuItem>
-              <MenuItem value={"Class"}>Class</MenuItem>
-              <MenuItem value={"Clubbing"}>Clubbing</MenuItem>
-              <MenuItem value={"Meal"}>Meal</MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Sports"}>Sports</MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Class"}>Class</MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Clubbing"}>Clubbing</MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Meal"}>Meal</MenuItem>
             </Select>
           </FormControl>
         </DialogContent>
