@@ -200,7 +200,9 @@ export default function CreateSchedule() {
   return (
     <React.Fragment>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle classes={{ root: { color: "black" } }}>Add Event</DialogTitle>
+        <DialogTitle classes={{ root: { color: "black" } }}>
+          Add Event
+        </DialogTitle>
         <DialogContent>
           <TextField
             //autoFocus
@@ -220,16 +222,40 @@ export default function CreateSchedule() {
               label="Age"
               onChange={(e) => setEventType(e.target.value)}
             >
-              <MenuItem style={{ color: "black" }} value={"Sports"}>Sports</MenuItem>
-              <MenuItem style={{ color: "black" }} value={"Class"}>Class</MenuItem>
-              <MenuItem style={{ color: "black" }} value={"Clubbing"}>Clubbing</MenuItem>
-              <MenuItem style={{ color: "black" }} value={"Meal"}>Meal</MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Sports"}>
+                Sports
+              </MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Class"}>
+                Class
+              </MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Clubbing"}>
+                Clubbing
+              </MenuItem>
+              <MenuItem style={{ color: "black" }} value={"Meal"}>
+                Meal
+              </MenuItem>
             </Select>
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button style={{ color: "black" }} onClick={handleClose}>Cancel</Button>
-          <Button style={{ color: "black" }} onClick={setEvent}>Add</Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#8DB596",
+            }}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#8DB596",
+            }}
+            onClick={setEvent}
+          >
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
       {ready && (
