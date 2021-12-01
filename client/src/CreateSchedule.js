@@ -21,6 +21,7 @@ import {
   Grow,
   Popper,
   ClickAwayListener,
+  Avatar,
 } from "@material-ui/core";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -28,11 +29,31 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayjs from "dayjs";
 import Lottie from "react-lottie";
 import scientist from "./assets/scientist.json";
-import "./styles.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import "./styles.css";
 
 let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let dayColors = [
+  "#8FB4CF",
+  "#CF5384",
+  "#CF7730",
+  "#CFAC30",
+  "#D1394E",
+  "#D1C23F",
+  "#30CCBD",
+];
+let dayEventColors = [
+  "#A0CAE8",
+  "#F6629D",
+  "#F58C38",
+  "#F0C837",
+  "#F04158",
+  "#F0DE47",
+  "#3AF2E0",
+];
 
 export default function CreateSchedule() {
   const [allEvents, setAllEvents] = useState([]);
@@ -211,70 +232,90 @@ export default function CreateSchedule() {
       </Dialog>
       {ready && (
         <React.Fragment>
-          {[1, 2, 3, 4, 5, 6, 0].map((value, index) => (
-            <Grid
-              container
-              spacing={0}
-              direction="column"
-              alignItems="center"
-              justify="center"
-              justifyContent="center"
-              //style={{ minHeight: "100vh" }}
-            >
-              <Grid item>
-                <Paper
-                  elevation={5}
-                  style={{
-                    width: "100%",
-                    marginBottom: 50,
-                    borderRadius: 50,
-                    paddingTop: 50,
-                    paddingBottom: 50,
-                    backgroundColor: "#8DB596",
-                  }}
-                >
-                  <FullCalendar
-                    plugins={[timeGridPlugin, interactionPlugin]}
-                    headerToolbar={false}
-                    height={"auto"}
-                    allDaySlot={false}
-                    firstDay={1}
-                    slotMinTime={"07:00"}
-                    hiddenDays={[1, 2, 3, 4, 5, 6, 0].filter(
-                      (e) => e !== value
-                    )}
-                    eventBackgroundColor={"#BEDBBB"}
-                    eventBorderColor={"#BEDBBB"}
-                    eventTextColor={"#000"}
-                    //minTime={"07:00"}
-                    //slotDuration={"01:00:00"}
-                    eventTimeFormat={{
-                      hour: "numeric",
-                      minute: "2-digit",
-                      meridiem: "short",
+          <Carousel
+            autoPlay={false}
+            emulateTouch={true}
+            showStatus={false}
+            showIndicators={false}
+            infiniteLoop={false}
+            preventMovementUntilSwipeScrollTolerance={true}
+            swipeScrollTolerance={20}
+          >
+            {[1, 2, 3, 4, 5, 6, 0].map((value, index) => (
+              <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                justifyContent="center"
+                //style={{ minHeight: "100vh" }}
+              >
+                <Grid item>
+                  <Paper
+                    elevation={5}
+                    style={{
+                      width: "100%",
+                      //marginBottom: 50,
+                      borderRadius: 50,
+                      paddingTop: 50,
+                      paddingBottom: 50,
+                      backgroundColor: dayColors[value],
                     }}
-                    dayHeaderContent={(calendar) =>
-                      weekDays[calendar.date.getDay()]
-                    }
-                    events={allEvents}
-                    selectable={true}
-                    select={handleOpen}
-                  />
-                </Paper>
+                  >
+                    <Avatar
+                      variant="rounded"
+                      style={{ backgroundColor: "#8DB596", marginBottom: 25, width: 500, height: 50 }}
+                    >
+                      <Typography variant="h3">Life Planner</Typography>
+                    </Avatar>
+                    <FullCalendar
+                      plugins={[timeGridPlugin, interactionPlugin]}
+                      headerToolbar={false}
+                      height={"auto"}
+                      allDaySlot={false}
+                      firstDay={1}
+                      slotMinTime={"07:00"}
+                      hiddenDays={[1, 2, 3, 4, 5, 6, 0].filter(
+                        (e) => e !== value
+                      )}
+                      eventBackgroundColor={dayEventColors[value]}
+                      eventBorderColor={dayEventColors[value]}
+                      eventTextColor={"#000"}
+                      //minTime={"07:00"}
+                      //slotDuration={"01:00:00"}
+                      eventTimeFormat={{
+                        hour: "numeric",
+                        minute: "2-digit",
+                        meridiem: "short",
+                      }}
+                      dayHeaderContent={(calendar) =>
+                        weekDays[calendar.date.getDay()]
+                      }
+                      events={allEvents}
+                      selectable={true}
+                      select={handleOpen}
+                    />
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
-          ))}
+            ))}
+          </Carousel>
           {!confirm && (
-            <Button
-              variant="contained"
+            <Fab
               style={{
+                position: "fixed",
+                bottom: 5,
+                right: 5,
+                zIndex: 100,
                 backgroundColor: "#8DB596",
               }}
-              fullWidth
+              size="medium"
               onClick={planLife}
+              variant="extended"
             >
               Plan Your Life
-            </Button>
+            </Fab>
           )}
         </React.Fragment>
       )}
