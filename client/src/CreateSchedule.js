@@ -31,29 +31,15 @@ import Lottie from "react-lottie";
 import scientist from "./assets/scientist.json";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./styles.css";
 
 let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-let dayColors = [
-  "#8FB4CF",
-  "#CF5384",
-  "#CF7730",
-  "#CFAC30",
-  "#D1394E",
-  "#D1C23F",
-  "#30CCBD",
-];
-let dayEventColors = [
-  "#A0CAE8",
-  "#F6629D",
-  "#F58C38",
-  "#F0C837",
-  "#F04158",
-  "#F0DE47",
-  "#3AF2E0",
-];
+let dayColors = ["#38483c","#a2c3aa","#7fa387","#719178","#637f69","#556d5a","#475b4b",];
+//let dayColors = ["#8FB4CF","#CF5384","#CF7730","#CFAC30","#D1394E","#D1C23F","#30CCBD",];
+let dayEventColors = ["#8db596","#d1e1d5","#c6dacb","#bbd3c0","#afcbb6","#a4c4ab","#98bca1",];
+//let dayEventColors = ["#A0CAE8","#F6629D","#F58C38","#F0C837","#F04158","#F0DE47","#3AF2E0",];
 
 export default function CreateSchedule() {
   const [allEvents, setAllEvents] = useState([]);
@@ -198,7 +184,7 @@ export default function CreateSchedule() {
   return (
     <React.Fragment>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Event</DialogTitle>
+        <DialogTitle style={{ color: "black" }}>Add Event</DialogTitle>
         <DialogContent>
           <TextField
             //autoFocus
