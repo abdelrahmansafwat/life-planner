@@ -228,8 +228,8 @@ export default function CreateSchedule() {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={setEvent}>Add</Button>
+          <Button style={{ color: "black" }} onClick={handleClose}>Cancel</Button>
+          <Button style={{ color: "black" }} onClick={setEvent}>Add</Button>
         </DialogActions>
       </Dialog>
       {ready && (
