@@ -373,12 +373,18 @@ export default function CreateSchedule() {
             //style={{ minHeight: "100vh" }}
           >
             <Grid item>
-              <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+              <Typography
+                sx={{ flexGrow: 1, textAlign: "center" }}
+                style={{ color: "black" }}
+              >
                 Hang on...
               </Typography>
             </Grid>
             <Grid item>
-              <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+              <Typography
+                sx={{ flexGrow: 1, textAlign: "center" }}
+                style={{ color: "black" }}
+              >
                 Our rocket scientists are planning your life
               </Typography>
             </Grid>
@@ -429,6 +435,7 @@ export default function CreateSchedule() {
                       onKeyDown={handleListKeyDown}
                     >
                       <MenuItem
+                        style={{ color: "black" }}
                         onClick={() => {
                           console.log("Saved");
                           let eventsStringified = [];
@@ -457,6 +464,7 @@ export default function CreateSchedule() {
                         Yes
                       </MenuItem>
                       <MenuItem
+                        style={{ color: "black" }}
                         onClick={() => {
                           setAllEvents([]);
                           setOpenMenu(false);
