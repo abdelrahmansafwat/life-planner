@@ -200,7 +200,7 @@ export default function CreateSchedule() {
   return (
     <React.Fragment>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle style={{ color: "black" }}>Add Event</DialogTitle>
+        <DialogTitle classes={{ root: { color: "black" } }}>Add Event</DialogTitle>
         <DialogContent>
           <TextField
             //autoFocus
